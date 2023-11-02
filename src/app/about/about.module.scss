@@ -1,3 +1,10 @@
 .about {
   background-color: red;
+  &-paragraph {
+    color: blue;
+  }
+}
+
+.about-paragraph {
+  background-color: yellow;
 }
