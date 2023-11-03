@@ -2,17 +2,15 @@
 
 import Link from "next/link";
 import Loader from "../components/Loader";
-import Navbar from "../components/Navbar";
+import toast from "react-hot-toast";
 
 export default function Home() {
   return (
-    <>
-      <Navbar />
-      <main>
-        <p>Home</p>
-        <Loader show />
-        <Link href={"./about"}>to about page</Link>
-      </main>
-    </>
+    <main>
+      <p>Home</p>
+      <Loader show />
+      <Link href={"./about"}>to about page</Link>
+      <button onClick={() => toast.success("hello toast!")}>Toast Me</button>
+    </main>
   );
 }
