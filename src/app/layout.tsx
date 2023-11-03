@@ -19,3 +19,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+
+// TODO: firebase modular upgrade (https://firebase.google.com/docs/web/modular-upgrade?hl=ru)
