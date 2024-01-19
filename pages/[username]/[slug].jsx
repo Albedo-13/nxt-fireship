@@ -1,4 +1,6 @@
+import PostContent from "../../components/PostContent";
 import { firestore, getUserWithUsername, postToJSON } from "../../lib/firebase";
+import { useDocumentData } from "react-firebase-hooks/firestore";
 
 export async function getStaticProps({ params }) {
   const { username, slug } = params;
@@ -21,7 +23,7 @@ export async function getStaticProps({ params }) {
   };
 }
 
-export async function getStaticPath() {
+export async function getStaticPaths() {
   const snapshot = await firestore.collectionGroup("posts").get();
 
   const paths = snapshot.docs.map((doc) => {
@@ -37,10 +39,28 @@ export async function getStaticPath() {
     //   { params: { username, slug }}
     // ],
     paths,
-    fallback: 'blocking',
+    fallback: "blocking",
   };
 }
 
 export default function PostPage(props) {
-  return <main className={styles.container}></main>;
+  const postRef = firestore.doc(props.path);
+  const [realtimePost] = useDocumentData(postRef);
+
+  const post = realtimePost || props.post;
+
+  // className={styles.container}
+  return (
+    <main>
+      <section>
+        <PostContent post={post} />
+      </section>
+
+      <aside className="card">
+        <p>
+          <strong>{post.heartCount || 0} 🤍</strong>
+        </p>
+      </aside>
+    </main>
+  );
 }
